@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 export default function LocationScreen({ navigation }) {
   const [bairro, setBairro] = useState('');
@@ -10,26 +10,31 @@ export default function LocationScreen({ navigation }) {
       alert('Preencha os dois campos!');
       return;
     }
-
     const location = `${bairro}, ${cidade}`;
     navigation.navigate('Tempo de Interrupção', { location });
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Localização Atingida</Text>
+
       <TextInput
         style={styles.input}
-        placeholder="Bairro afetado"
+        placeholder="Bairro"
         value={bairro}
         onChangeText={setBairro}
       />
+
       <TextInput
         style={styles.input}
         placeholder="Cidade"
         value={cidade}
         onChangeText={setCidade}
       />
-      <Button title="Próximo" onPress={handleNext} />
+
+      <TouchableOpacity style={styles.button} onPress={handleNext}>
+        <Text style={styles.buttonText}>Continuar</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -37,12 +42,35 @@ export default function LocationScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20
+    backgroundColor: '#e3f2fd',
+    padding: 20,
+    justifyContent: 'center'
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    textAlign: 'center',
+    color: '#0d47a1'
   },
   input: {
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 20,
-    borderRadius: 5
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 12,
+    marginBottom: 15,
+    fontSize: 16,
+    elevation: 2
+  },
+  button: {
+    backgroundColor: '#1976d2',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 10
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16
   }
 });
